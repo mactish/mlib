@@ -1,0 +1,73 @@
+/*
+ * Copyright 2011-2019 Mitrokhin S.V. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+////////////////////////////////////////////////////////////////////////////////////////////////////
+/// @file MBitFormat.h
+/// @brief Функции для работы с битами
+/// @author Mitrokhin S.V.
+/// @date 09.01.2019
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#ifndef MBITFORMAT_H
+#define MBITFORMAT_H
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#include "MGlobal.h"
+////////////////////////////////////////////////////////////////////////////////////////////////////
+MLIB_BEGIN_NAMESPACE
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/// Установить бит в позиции pos
+template <class T>
+inline T bitSet(T& number, uint32_t pos)
+{
+    return number |= (1 << pos);
+}
+
+/// Переключить бит в позиции pos
+template <class T>
+inline T bitChange(T& number, uint32_t pos)
+{
+    return number ^= (1 << pos);
+}
+
+/// Сбросить бит в позиции pos
+template <class T>
+inline T bitClear(T& number, uint32_t pos)
+{
+    return number &= ~(1 << pos);
+}
+
+/// Установить бит в позиции pos
+template <class T>
+inline T bitSet(T& number, uint32_t pos, bool value)
+{
+    return value ? bitSet(number, pos) : bitClear(number, pos);
+}
+
+/// Проверить бит в позиции pos
+template <class T>
+inline bool bitTest(T number, uint32_t index)
+{
+    return number & (1 << index);
+}
+
+#define setBit      bitSet
+#define changeBit   bitChange
+#define clearBit    bitClear
+#define getBit      bitTest
+
+MLIB_END_NAMESPACE
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#endif // MBITFORMAT_H
+////////////////////////////////////////////////////////////////////////////////////////////////////
